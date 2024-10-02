@@ -1,8 +1,8 @@
 import type { FormEvent } from "react";
 import { Amplify } from "aws-amplify";
-import { signUp, confirmSignUp } from "aws-amplify/auth";
+import { signUp, confirmSignUp, getCurrentUser} from "aws-amplify/auth";
 import outputs from "../../../amplify_outputs.json";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 Amplify.configure(outputs);
@@ -25,6 +25,20 @@ export default function App() {
   const [isSignUpComplete, setIsSignUpComplete] = useState(false);
   const [email, setEmail] = useState("");
   const nav = useNavigate();
+
+  useEffect(() => {
+    const checkIfAuthenticated = async () => {
+      try {
+        const user = await getCurrentUser();
+        if (user) {
+          nav("/pickFavorite");
+        }
+      } catch (err) {
+        // Do nothing, user is not authenticated
+      }
+    };
+    checkIfAuthenticated();
+  }, [nav]);
 
   async function handleSignUp(event: FormEvent<SignUpForm>) {
     event.preventDefault();
