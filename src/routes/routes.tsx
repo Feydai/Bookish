@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import SignIn from '../routes/SignIn/SignIn';
 import PickFavorite from '../routes/PickFavorite/PickFavorite';
+import BookPreview from '../routes/BookPreview/BookPreview';
 
 const routesConfig: RouteObject[] = [
     {
@@ -10,6 +11,10 @@ const routesConfig: RouteObject[] = [
     {
         path: '/pickFavorite',
         element: <PickFavorite />,
+    },
+    {
+        path: '/bookPreview/:bookId',
+        element: <BookPreview />,
     },
 ];
 

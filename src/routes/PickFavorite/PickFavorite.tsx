@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import BookCard from './../../components/BookCard';
 import { Book } from './../../types/Book';
 
@@ -55,10 +56,12 @@ const PickFavorite = ({}: PickFavoriteProps) => {
                 !!bookSelection.length &&
                 bookSelection.map((book: Book) => {
                     return (
-                        <BookCard
-                            key={book.id}
-                            title={book.title}
-                        />
+                        <Link to={`/bookPreview/${book.id}`}>
+                            <BookCard
+                                key={book.id}
+                                title={book.title}
+                            />
+                        </Link>
                     );
                 })}
         </div>
