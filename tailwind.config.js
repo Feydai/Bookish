@@ -1,9 +1,13 @@
 module.exports = {
   content: [
-    './src/**/*.{js,jsx,ts,tsx}',
+    './src/**/*.{js,jsx,ts,tsx}', // Adjust the paths according to your project structure
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customBlue: '#0891b2',
+      }
+    },
   },
   plugins: [],
 };

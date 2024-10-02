@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bookish-dev-9720d-authRole",
+      "UnauthRoleArn": "arn:aws:iam::122610514479:role/amplify-bookish-dev-9720d-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::122610514479:role/amplify-bookish-dev-9720d-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-bookish-dev-9720d-deployment",
+      "UnauthRoleName": "amplify-bookish-dev-9720d-unauthRole",
+      "StackName": "amplify-bookish-dev-9720d",
+      "StackId": "arn:aws:cloudformation:us-east-1:122610514479:stack/amplify-bookish-dev-9720d/0a5f8830-80df-11ef-ad3b-12e79ee3bbdb",
+      "AmplifyAppId": "d1910u89js1y2e"
+    },
+    "categories": {
+      "auth": {
+        "bookishe3bd437d": {}
+      }
+    }
+  }
+}
