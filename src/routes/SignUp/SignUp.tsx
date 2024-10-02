@@ -9,6 +9,7 @@ Amplify.configure(outputs);
 interface SignUpFormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
   password: HTMLInputElement;
+  confirmPassword: HTMLInputElement;
   code: HTMLInputElement;
 }
 
@@ -29,8 +30,9 @@ export default function App() {
 
     const email = form.elements.email.value;
     const password = form.elements.password.value;
+    const confirmPassword = form.elements.confirmPassword.value;
 
-    if (!email || !password) {
+    if (!email || !password || !confirmPassword) {
       setError("Veuillez remplir tous les champs.");
       return;
     }
@@ -109,6 +111,17 @@ export default function App() {
             <div>
               <label htmlFor="password">Mot de passe:</label>
               <input type="password" id="password" name="password" required />
+            </div>
+            <div>
+              <label htmlFor="confirmPassword">
+                Confirmer le mot de passe:
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                required
+              />
             </div>
             <button type="submit" disabled={loading}>
               {loading ? "Inscription en cours..." : "S'inscrire"}
