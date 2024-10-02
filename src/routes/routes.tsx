@@ -1,27 +1,31 @@
-import { createBrowserRouter, RouteObject } from 'react-router-dom';
-import { RequireAuth } from '../components/RequireAuth';
+import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { RequireAuth } from "../components/RequireAuth";
 
-import SignIn from '../routes/SignIn/SignIn';
-import SignUp from '../routes/SignUp/SignUp';
-import SignOut from '../routes/SignOut/SignOut'
-import PickFavorite from '../routes/PickFavorite/PickFavorite';
-import BookPreview from '../routes/BookPreview/BookPreview';
+import SignIn from "../routes/SignIn/SignIn";
+import SignUp from "../routes/SignUp/SignUp";
+import SignOut from "../routes/SignOut/SignOut";
+import PickFavorite from "../routes/PickFavorite/PickFavorite";
+import BookPreview from "../routes/BookPreview/BookPreview";
 
 const routesConfig: RouteObject[] = [
   {
-    path: '/',
+    path: "/",
     element: <SignUp />,
   },
   {
-    path: '/signIn',
+    path: "/signIn",
     element: <SignIn />,
   },
   {
-    path: '/signOut',
-    element: <SignOut />,
+    path: "/signOut",
+    element: (
+      <RequireAuth>
+        <SignOut />
+      </RequireAuth>
+    ),
   },
   {
-    path: '/pickFavorite',
+    path: "/pickFavorite",
     element: (
       <RequireAuth>
         <PickFavorite />
@@ -29,7 +33,7 @@ const routesConfig: RouteObject[] = [
     ),
   },
   {
-    path: '/bookPreview/:bookId',
+    path: "/bookPreview/:bookId",
     element: (
       <RequireAuth>
         <BookPreview />
