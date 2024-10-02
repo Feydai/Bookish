@@ -3,6 +3,7 @@ import { Amplify } from "aws-amplify";
 import { signIn } from "aws-amplify/auth";
 import outputs from "../../../amplify_outputs.json";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 Amplify.configure(outputs);
 
@@ -18,6 +19,7 @@ interface SignInForm extends HTMLFormElement {
 export default function SignIn() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const nav = useNavigate();
 
   async function handleSubmit(event: FormEvent<SignInForm>) {
     event.preventDefault();
@@ -40,6 +42,7 @@ export default function SignIn() {
       });
 
       console.log("Connexion réussie");
+      nav("../pickFavorite");
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || "Erreur de connexion");
