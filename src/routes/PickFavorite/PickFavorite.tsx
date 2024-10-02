@@ -56,11 +56,11 @@ const PickFavorite = ({}: PickFavoriteProps) => {
                 !!bookSelection.length &&
                 bookSelection.map((book: Book) => {
                     return (
-                        <Link to={`/bookPreview/${book.id}`}>
-                            <BookCard
-                                key={book.id}
-                                title={book.title}
-                            />
+                        <Link
+                            key={book.id}
+                            to={`/bookPreview/${book.id}`}
+                        >
+                            <BookCard title={book.title} />
                         </Link>
                     );
                 })}
