@@ -55,22 +55,63 @@ export default function SignIn() {
   }
 
   return (
-    <div>
-      <h2>Connexion</h2>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email :</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div>
-          <label htmlFor="password">Mot de passe :</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? "Connexion en cours..." : "Se connecter"}
-        </button>
-      </form>
+    <div className="min-h-screen flex items-center justify-center bg-purple-100 px-4">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h2 className="text-4xl font-extrabold mb-6 text-purple-900 text-center">
+          Connexion
+        </h2>
+
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-base font-medium text-purple-900"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              className="mt-1 block w-full p-3 text-sm text-purple-900 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-base font-medium text-purple-900"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              className="mt-1 block w-full p-3 text-sm text-purple-900 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 px-4 bg-purple-600 text-white text-lg font-semibold rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+          >
+            {loading ? "Signing in..." : "Sign In"}
+          </button>
+        </form>
+
+        <p className="mt-4 text-sm text-gray-600 text-center">
+          Don't have an account?{" "}
+          <a href="/signup" className="text-purple-600 font-medium">
+            Sign up here
+          </a>
+        </p>
+      </div>
     </div>
   );
 }
