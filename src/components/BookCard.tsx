@@ -15,7 +15,7 @@ interface BookCardProps {
 }
 const BookCard = ({ imgUrl, title, desc, authors }: BookCardProps) => {
   return (
-    <Card sx={{ p: 2 }}>
+    <Card sx={{ p: 2, mb: 5 }}>
       <CardMedia sx={{ height: 200 }} image={imgUrl} title="Book Cover" />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
