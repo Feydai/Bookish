@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { Amplify } from "aws-amplify";
-import { signIn, getCurrentUser } from "aws-amplify/auth";
+import { signIn, getCurrentUser, fetchAuthSession} from "aws-amplify/auth";
 import outputs from "../../../amplify_outputs.json";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,12 +19,14 @@ interface SignInForm extends HTMLFormElement {
 export default function SignIn() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [jwtToken, setJwtToken] = useState<string | null>(null);
   const nav = useNavigate();
 
   useEffect(() => {
     const checkIfAuthenticated = async () => {
       try {
         const user = await getCurrentUser();
+        console.log(user);
         if (user) {
           nav("/pickFavorite");
         }
@@ -56,6 +58,12 @@ export default function SignIn() {
       });
 
       console.log("Connexion réussie");
+      const idToken = (await fetchAuthSession()).tokens?.idToken?.toString();
+      if (idToken) {
+        setJwtToken(idToken); // Stocker le token dans le state pour l'afficher
+      }
+
+      console.log("JWT Token:", idToken); 
       nav("../pickFavorite");
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -118,7 +126,13 @@ export default function SignIn() {
             {loading ? "Signing in..." : "Sign In"}
           </button>
         </form>
-
+        {jwtToken && (
+          <div className="mt-4 bg-gray-100 p-4 rounded-md">
+            <p className="text-sm text-gray-800 break-all">
+              JWT Token: {jwtToken}
+            </p>
+          </div>
+        )}
         <p className="mt-4 text-sm text-gray-600 text-center">
           Don't have an account?{" "}
           <a href="/signup" className="text-black-900 font-medium">
