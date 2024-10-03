@@ -5,7 +5,6 @@ import outputs from "../../../amplify_outputs.json";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 Amplify.configure(outputs);
 
 interface SignInFormElements extends HTMLFormControlsCollection {
@@ -70,9 +69,9 @@ export default function SignIn() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-purple-100 px-4">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h2 className="text-4xl font-extrabold mb-6 text-purple-900 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-[#f4f5f7] px-4 sm:px-6 lg:px-8">
+      <div className="p-8 max-w-xs sm:max-w-md lg:max-w-lg relative bg-white rounded-lg shadow-lg">
+        <h2 className="text-3xl font-extrabold text-black-900 mb-6 text-center">
           Connexion
         </h2>
 
@@ -82,7 +81,7 @@ export default function SignIn() {
           <div>
             <label
               htmlFor="email"
-              className="block text-base font-medium text-purple-900"
+              className="block text-base font-medium text-black-900 text-left"
             >
               Email
             </label>
@@ -91,14 +90,14 @@ export default function SignIn() {
               id="email"
               name="email"
               required
-              className="mt-1 block w-full p-3 text-sm text-purple-900 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
+              className="mt-1 block w-full p-3 text-sm text-black-900 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
             />
           </div>
 
           <div>
             <label
               htmlFor="password"
-              className="block text-base font-medium text-purple-900"
+              className="block text-base font-medium text-black-900 text-left"
             >
               Password
             </label>
@@ -107,14 +106,14 @@ export default function SignIn() {
               id="password"
               name="password"
               required
-              className="mt-1 block w-full p-3 text-sm text-purple-900 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
+              className="mt-1 block w-full p-3 text-sm text-black-900 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 px-4 bg-purple-600 text-white text-lg font-semibold rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+            className="w-full py-3 px-4 bg-[#07090c] text-white text-lg font-semibold rounded-lg hover:bg-black focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
@@ -122,7 +121,7 @@ export default function SignIn() {
 
         <p className="mt-4 text-sm text-gray-600 text-center">
           Don't have an account?{" "}
-          <a href="/signup" className="text-purple-600 font-medium">
+          <a href="/signup" className="text-black-900 font-medium">
             Sign up here
           </a>
         </p>
