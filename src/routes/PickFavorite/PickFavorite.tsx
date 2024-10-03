@@ -2,14 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookCard from './../../components/BookCard';
 import { Book } from './../../types/Book';
-import client from './../../database/client';
+import { Amplify } from 'aws-amplify';
+import outputs from './../../../amplify_outputs.json';
+import type { Schema } from './../../../amplify/data/resource';
+import { generateClient } from 'aws-amplify/data';
 
 interface PickFavoriteProps {}
 
 const PickFavorite = ({}: PickFavoriteProps) => {
-    // const [bookSelection, setBookSelection] = useState([]);
+    const [bookSelection, setBookSelection] = useState<Book[]>([]);
+    Amplify.configure(outputs);
+    const client = generateClient<Schema>();
 
-    const bookSelection: Book[] = [
+    const googleBooksOfTheMonth: Book[] = [
         {
             id: '1',
             title: 'To Kill a Mockingbird',
@@ -55,22 +60,23 @@ const PickFavorite = ({}: PickFavoriteProps) => {
         const year = date.getFullYear();
         const month = date.getMonth();
         try {
-            const { data: booksOfTheMonth, errors } =
-                await client.models.BooksOfTheMonth.list({
-                    filter: {
-                        year: {
-                            eq: year,
-                        },
-                        month: {
-                            eq: month,
-                        },
+            const { data, errors } = await client.models.BookOfTheMonth.list({
+                filter: {
+                    year: {
+                        eq: year,
                     },
-                });
+                    month: {
+                        eq: month,
+                    },
+                },
+            });
 
             if (errors) {
-                return errors;
+                console.error('Error fetching books of the month', errors);
+                return [];
             }
-            return booksOfTheMonth;
+            console.log(data);
+            return data ? data : [];
         } catch (err) {
             console.error('Error fetching books of the month', err);
             return [];
@@ -83,15 +89,34 @@ const PickFavorite = ({}: PickFavoriteProps) => {
             const year = date.getFullYear();
             const month = date.getMonth();
             const booksOfTheMonth: Book[] = await getData();
+            console.log(booksOfTheMonth);
 
             if (booksOfTheMonth?.length === 0) {
                 // Get 3 random books from API here and set it to books of the month if
                 // no books for current month
+                let books: Book[] = [];
+                googleBooksOfTheMonth.forEach(async (book) => {
+                    const { data: group } = await client.models.Group.create({
+                        members: [],
+                    });
+                    if (group) {
+                        const { data: newBook } =
+                            await client.models.BookOfTheMonth.create({
+                                ...book,
+                                year,
+                                month,
+                                groupId: group.id,
+                            });
+                        books.push(newBook);
+                    }
+                });
+                setBookSelection(books);
             } else {
-                // setBookSelection(booksOfTheMonth)
+                setBookSelection(booksOfTheMonth);
             }
         })();
     }, []);
+
     return (
         <div>
             <h1>Choississez votre livre du mois</h1>
