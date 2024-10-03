@@ -22,15 +22,12 @@ const HomePage: React.FC = () => {
           Connect, read, and discuss with book lovers around the world.
         </p>
 
-        {/* Create Account button */}
         <button
-          onClick={() => nav("/signIn")}
+          onClick={() => nav("/signUp")}
           className="bg-[#07090c] text-white py-2 px-4 rounded-lg w-5/6 mt-4 transition duration-300 hover:bg-[#1a1c1f]"
         >
           Create Account
         </button>
-
-        {/* Login button */}
         <button
           onClick={() => nav("/signIn")}
           className="bg-[#ebebeb] text-black py-2 px-4 rounded-lg w-5/6 mt-4 transition duration-300 hover:bg-gray-300"
