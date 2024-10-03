@@ -1,5 +1,6 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 import { getAISuggestions } from "../functions/getAISuggestions/resource"
+import { getGoogleBook } from "../functions/getGoogleBook/resource"
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -20,6 +21,7 @@ const schema = a.schema({
       month: a.integer(),
       year: a.integer(),
       groupId: a.id(),
+      coverImage: a.string(),
       group: a.belongsTo('Group', 'groupId'),
   }).authorization((allow) => [allow.publicApiKey()]),
   Group: a.model({
@@ -31,6 +33,14 @@ const schema = a.schema({
     .query()
     .returns(a.string())
     .handler(a.handler.function(getAISuggestions))
+    .authorization((allow) => [allow.publicApiKey()]),
+  getGoogleBook: a
+    .query()
+    .arguments({
+      title: a.string(),
+    })
+    .returns(a.string())
+    .handler(a.handler.function(getGoogleBook))
     .authorization((allow) => [allow.publicApiKey()]),
 });
 
