@@ -5,7 +5,7 @@ export const handler: Schema["getGoogleBook"]["functionHandler"] = async (event)
     const {title} = event.arguments
     const result = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${title}+intitle&langRestrict=fr&printType=books`)
     const response = await result.json()
-    const book = response.items[0]
+    const book = response.items.filter((item: any) => !!item.volumeInfo.description)[0]
     const bookData = book.volumeInfo || {};
     const imageLinks = bookData.imageLinks || {};
     const thumbnail = imageLinks.thumbnail || "";

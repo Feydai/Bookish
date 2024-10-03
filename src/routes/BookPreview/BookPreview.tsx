@@ -59,9 +59,13 @@ const BookPreview = () => {
 
     return (
         <div>
-            {book && (  
+            {book && (
                 <div>
-                    <BookCard title={book.title} desc={book.description} authors={book.authors} />
+                    <BookCard
+                        title={book.title}
+                        desc={book.description}
+                        authors={book.authors}
+                    />
                     {book.categories?.map((cat: string) => (
                         <Chip
                             key={cat}

@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import BookCard from './../../components/BookCard';
 import { Book } from './../../types/Book';
+import { Group } from './../../types/Group';
 import { Amplify } from 'aws-amplify';
 import outputs from './../../../amplify_outputs.json';
 import type { Schema } from './../../../amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
+import { getCurrentUser } from 'aws-amplify/auth';
 
 import { Typography, Container } from '@mui/material';
 
@@ -15,6 +17,7 @@ const PickFavorite = ({}: PickFavoriteProps) => {
     const [bookSelection, setBookSelection] = useState<Book[]>([]);
     Amplify.configure(outputs);
     const client = generateClient<Schema>();
+    const navigate = useNavigate();
 
     function extractTextBetweenQuotes(inputString: string) {
         const matches = inputString.match(/"(.*?)"/g);
@@ -109,7 +112,26 @@ const PickFavorite = ({}: PickFavoriteProps) => {
         })();
     }, []);
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        (async () => {
+            const selectionSet = ['members', 'bookOfTheMonth.id'] as const;
+            const groups = await client.models.Group.list({
+                selectionSet,
+            });
+            const user = await getCurrentUser();
+            console.log(groups);
+            groups.data.forEach((group: Group) => {
+                if (
+                    group.members.find(
+                        (member: string) => member === user.userId
+                    ) &&
+                    group.bookOfTheMonth
+                ) {
+                    navigate(`/bookPreview/${group.bookOfTheMonth.id}`);
+                }
+            });
+        })();
+    }, []);
 
     return (
         <Container maxWidth="md">
