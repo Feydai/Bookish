@@ -7,7 +7,6 @@ const HomePage: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#f4f5f7] px-4 sm:px-6 lg:px-8">
       <div className="p-8 max-w-xs sm:max-w-md lg:max-w-lg text-center relative">
-        {/* Logo section */}
         {/* 
         <div className="bg-gray-200 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
           <span className="text-gray-600">LOGO</span>
