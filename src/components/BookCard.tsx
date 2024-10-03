@@ -8,12 +8,12 @@ import {
 } from "@mui/material";
 
 interface BookCardProps {
-  imgUrl: string;
+  imgUrl?: string;
   title: string;
   desc: string;
-  author: string;
+  authors: string[];
 }
-const BookCard = ({ imgUrl, title, desc, author }: BookCardProps) => {
+const BookCard = ({ imgUrl, title, desc, authors }: BookCardProps) => {
   return (
     <Card sx={{ p: 2 }}>
       <CardMedia sx={{ height: 200 }} image={imgUrl} title="Book Cover" />
@@ -22,7 +22,7 @@ const BookCard = ({ imgUrl, title, desc, author }: BookCardProps) => {
           {title}
         </Typography>
         <Typography variant="subtitle1" color="text.secondary">
-          {author}
+          {authors.join(", ")}{" "}
         </Typography>
         <Typography
           variant="body2"
