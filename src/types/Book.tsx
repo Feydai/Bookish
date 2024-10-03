@@ -8,4 +8,5 @@ export interface Book {
     averageRating: number;
     pageCount: number;
     language: string;
+    group?: Group;
 }
