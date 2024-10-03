@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import BookCard from './../../components/BookCard';
 import { Book } from './../../types/Book';
@@ -75,8 +75,8 @@ const PickFavorite = ({}: PickFavoriteProps) => {
                 console.error('Error fetching books of the month', errors);
                 return [];
             }
-            console.log(data);
-            return data ? data : [];
+            const books = data as unknown;
+            return books ? (books as Book[]) : [];
         } catch (err) {
             console.error('Error fetching books of the month', err);
             return [];
@@ -89,7 +89,6 @@ const PickFavorite = ({}: PickFavoriteProps) => {
             const year = date.getFullYear();
             const month = date.getMonth();
             const booksOfTheMonth: Book[] = await getData();
-            console.log(booksOfTheMonth);
 
             if (booksOfTheMonth?.length === 0) {
                 // Get 3 random books from API here and set it to books of the month if
@@ -100,14 +99,15 @@ const PickFavorite = ({}: PickFavoriteProps) => {
                         members: [],
                     });
                     if (group) {
-                        const { data: newBook } =
+                        const { data } =
                             await client.models.BookOfTheMonth.create({
                                 ...book,
                                 year,
                                 month,
                                 groupId: group.id,
                             });
-                        books.push(newBook);
+                        const newBook = data as unknown;
+                        books.push(newBook as Book);
                     }
                 });
                 setBookSelection(books);

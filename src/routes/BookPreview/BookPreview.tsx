@@ -18,27 +18,29 @@ const BookPreview = () => {
 
     useEffect(() => {
         (async () => {
-            const { data } = await client.models.BookOfTheMonth.get(
-                {
-                    id: bookId,
-                },
-                {
-                    selectionSet: [
-                        'id',
-                        'categories',
-                        'title',
-                        'authors',
-                        'publishedDate',
-                        'averageRating',
-                        'pageCount',
-                        'language',
-                        'description',
-                        'group.*',
-                    ],
-                }
-            );
-            const book = data;
-            book && setBook(book);
+            if (bookId) {
+                const { data } = await client.models.BookOfTheMonth.get(
+                    {
+                        id: bookId,
+                    },
+                    {
+                        selectionSet: [
+                            'id',
+                            'categories',
+                            'title',
+                            'authors',
+                            'publishedDate',
+                            'averageRating',
+                            'pageCount',
+                            'language',
+                            'description',
+                            'group.*',
+                        ],
+                    }
+                );
+                const book = data as Book;
+                book && setBook(book);
+            }
         })();
     }, []);
 
