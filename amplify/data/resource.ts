@@ -23,10 +23,19 @@ const schema = a.schema({
       groupId: a.id(),
       coverImage: a.string(),
       group: a.belongsTo('Group', 'groupId'),
+      comment: a.hasMany('Comment','bookId')
   }).authorization((allow) => [allow.publicApiKey()]),
   Group: a.model({
     bookOfTheMonth: a.hasOne("BookOfTheMonth", "groupId"),
     members: a.string().array(),
+  })
+    .authorization((allow) => [allow.publicApiKey()]),
+  Comment: a.model({
+    userId: a.string(),
+    content: a.string(),
+    bookId: a.id(),
+    book: a.belongsTo('BookOfTheMonth', 'bookId'),
+
   })
     .authorization((allow) => [allow.publicApiKey()]),
   getAISuggestions: a
