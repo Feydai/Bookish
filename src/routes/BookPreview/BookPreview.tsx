@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 import BookCard from '../../components/BookCard';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Book } from '../../types/Book';
 import { Button, Chip } from '@mui/material';
 import type { Schema } from './../../../amplify/data/resource';
 import { generateClient } from 'aws-amplify/data';
-import { useNavigate } from 'react-router-dom';
 import { Amplify } from 'aws-amplify';
 import outputs from './../../../amplify_outputs.json';
 
@@ -14,6 +13,8 @@ const BookPreview = () => {
     const { bookId } = useParams();
     const client = generateClient<Schema>();
     const navigate = useNavigate();
+    // get user from auth module here
+    const user = 'Hellen';
 
     useEffect(() => {
         // function here to retrive book from API with bookId
@@ -33,9 +34,15 @@ const BookPreview = () => {
     };
 
     const selectBook = async () => {
-        await client.models.Favorite.create({
-            google_id: bookId,
+        const group = client.models.Group.get({
+            bookId: bookId,
         });
+
+        const newgroup = {
+            id: group.id,
+            members: [...group.members, user],
+        };
+        await client.models.Group.update(newgroup);
         navigate('/');
     };
 
