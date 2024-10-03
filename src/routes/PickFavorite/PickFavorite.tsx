@@ -104,10 +104,6 @@ const PickFavorite = ({}: PickFavoriteProps) => {
                     books.filter((book) => book !== null) as any[]
                 );
             } else {
-                // booksOfTheMonth.forEach(
-                //     async (book) =>
-                //         await client.models.BookOfTheMonth.delete(book)
-                // );
                 setBookSelection(booksOfTheMonth);
             }
         })();
