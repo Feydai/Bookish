@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
         {/* <div className="bg-gray-200 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center">
           <span className="text-gray-600">LOGO</span>
         </div> */}
-        <h1 className="text-2xl sm:text-2xl lg:text-3xl font-bold text-black-900 mb-2">
+        <h1 className="text-2xl font-bold text-black-900 mb-2">
           Welcome to Bookish
         </h1>
         <p className="text-gray-600 my-5 text-sm font-medium">
@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
         >
           Login
         </button>
-        <div className="py-10 text-sm" >
+        <div className="py-10 text-sm">
           <p>By continuing, you agree to our</p>
           <a>By continuing, you agree to our Privacy Policy</a>
         </div>
