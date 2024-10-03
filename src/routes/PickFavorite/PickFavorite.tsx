@@ -16,6 +16,23 @@ const PickFavorite = ({}: PickFavoriteProps) => {
     Amplify.configure(outputs);
     const client = generateClient<Schema>();
 
+    function extractTextBetweenQuotes(inputString: string) {
+        const matches = inputString.match(/"(.*?)"/g);
+        if (matches) {
+            return matches.map((match) => match.replace(/"/g, ''))[0];
+        }
+        return '';
+    }
+
+    function formatAIResult(data: string) {
+        const formatted = data.split('-');
+        const onlyTitles = formatted.slice(Math.max(formatted.length - 3, 1));
+        const iaData = onlyTitles.map((title: string) =>
+            extractTextBetweenQuotes(title)
+        );
+        return iaData;
+    }
+
     const getData = async () => {
         const date = new Date();
         const year = date.getFullYear();
@@ -53,12 +70,12 @@ const PickFavorite = ({}: PickFavoriteProps) => {
 
             if (booksOfTheMonth?.length === 0) {
                 const result = await client.queries.getAISuggestions();
-                const iaData = result.data ? JSON.parse(result.data) : null;
+                const iaData = result.data ? formatAIResult(result.data) : [];
 
                 const books = await Promise.all(
-                    iaData.livres.map(async (book: Record<string, string>) => {
+                    iaData?.map(async (title) => {
                         const data = await client.queries.getGoogleBook({
-                            title: book.titre,
+                            title: title,
                         });
                         const googleBook = data.data
                             ? JSON.parse(data.data)
@@ -84,9 +101,13 @@ const PickFavorite = ({}: PickFavoriteProps) => {
                     })
                 );
                 setBookSelection(
-                    books.filter((book) => book !== null) as Book[]
+                    books.filter((book) => book !== null) as any[]
                 );
             } else {
+                // booksOfTheMonth.forEach(
+                //     async (book) =>
+                //         await client.models.BookOfTheMonth.delete(book)
+                // );
                 setBookSelection(booksOfTheMonth);
             }
         })();
