@@ -49,7 +49,7 @@ const BookPreview = () => {
         if (group) {
             const user = await getCurrentUser();
             const newgroup = {
-                id: group.id,
+                ...group,
                 members: [...group.members, user.userId],
             };
             await client.models.Group.update(newgroup);

@@ -1,3 +1,5 @@
+import { Group } from './Group';
+
 export interface Book {
     id: string;
     title: string;

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import BookCard from './../../components/BookCard';
 import { Book } from './../../types/Book';
-import { Group } from './../../types/Group';
 import { Amplify } from 'aws-amplify';
 import outputs from './../../../amplify_outputs.json';
 import type { Schema } from './../../../amplify/data/resource';
@@ -120,7 +119,7 @@ const PickFavorite = ({}: PickFavoriteProps) => {
             });
             const user = await getCurrentUser();
             console.log(groups);
-            groups.data.forEach((group: Group) => {
+            groups.data.forEach((group: any) => {
                 if (
                     group.members.find(
                         (member: string) => member === user.userId
