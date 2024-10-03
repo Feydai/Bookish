@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { getAISuggestions } from "../functions/getAISuggestions/resource"
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -25,7 +26,12 @@ const schema = a.schema({
     bookOfTheMonth: a.hasOne("BookOfTheMonth", "groupId"),
     members: a.string().array(),
   })
-  .authorization((allow) => [allow.publicApiKey()]),
+    .authorization((allow) => [allow.publicApiKey()]),
+  getAISuggestions: a
+    .query()
+    .returns(a.string())
+    .handler(a.handler.function(getAISuggestions))
+    .authorization((allow) => [allow.publicApiKey()]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
