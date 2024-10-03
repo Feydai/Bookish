@@ -1,6 +1,6 @@
 import type { FormEvent } from "react";
 import { Amplify } from "aws-amplify";
-import { signUp, confirmSignUp, getCurrentUser} from "aws-amplify/auth";
+import { signUp, confirmSignUp, getCurrentUser } from "aws-amplify/auth";
 import outputs from "../../../amplify_outputs.json";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ interface SignUpForm extends HTMLFormElement {
   readonly elements: SignUpFormElements;
 }
 
-export default function App() {
+export default function SignUp() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -120,15 +120,15 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-purple-100 px-4">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
-        <h2 className="text-4xl font-extrabold mb-6 text-purple-900 text-center">
+    <div className="min-h-screen flex items-center justify-center bg-[#f4f5f7] px-4 sm:px-6 lg:px-8">
+      <div className="p-8 w-full max-w-md sm:max-w-lg lg:max-w-xl bg-white rounded-lg shadow-lg">
+        <h2 className="text-3xl font-extrabold text-black-900 mb-6 text-center">
           Bookish
         </h2>
 
         {!isSignUpComplete ? (
           <>
-            <h3 className="text-2xl font-semibold text-purple-800 mb-4 text-center">
+            <h3 className="text-2xl font-semibold text-black-900 mb-4 text-center">
               Create an account
             </h3>
             {error && (
@@ -138,7 +138,7 @@ export default function App() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-base font-medium text-purple-900 text-left"
+                  className="block text-base font-medium text-black-900 text-left"
                 >
                   Your email
                 </label>
@@ -147,13 +147,13 @@ export default function App() {
                   id="email"
                   name="email"
                   required
-                  className="mt-1 block w-full p-3 text-sm text-purple-900 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
+                  className="mt-1 block w-full p-3 text-sm text-black-900 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
                 />
               </div>
               <div>
                 <label
                   htmlFor="password"
-                  className="block text-base font-medium text-purple-900 text-left"
+                  className="block text-base font-medium text-black-900 text-left"
                 >
                   Password
                 </label>
@@ -162,13 +162,13 @@ export default function App() {
                   id="password"
                   name="password"
                   required
-                  className="mt-1 block w-full p-3 text-sm text-purple-900 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
+                  className="mt-1 block w-full p-3 text-sm text-black-900 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
                 />
               </div>
               <div>
                 <label
                   htmlFor="confirmPassword"
-                  className="block text-base font-medium text-purple-900 text-left"
+                  className="block text-base font-medium text-black-900 text-left"
                 >
                   Confirm password
                 </label>
@@ -177,7 +177,7 @@ export default function App() {
                   id="confirmPassword"
                   name="confirmPassword"
                   required
-                  className="mt-1 block w-full p-3 text-sm text-purple-900 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
+                  className="mt-1 block w-full p-3 text-sm text-black-900 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
                 />
               </div>
               <div className="text-left">
@@ -198,21 +198,21 @@ export default function App() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 px-4 bg-purple-600 text-white text-lg font-semibold rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                className="w-full py-3 px-4 bg-[#07090c] text-white text-lg font-semibold rounded-lg hover:bg-black focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
               >
                 {loading ? "Signing up..." : "Create an account"}
               </button>
             </form>
             <p className="mt-4 text-sm text-gray-600 text-center">
               Already have an account?{" "}
-              <a href="/signIn" className="text-purple-600 font-medium">
+              <a href="/signIn" className="text-black-900 font-medium">
                 Login here
               </a>
             </p>
           </>
         ) : (
           <>
-            <h3 className="text-2xl font-semibold text-purple-800 mb-4 text-center">
+            <h3 className="text-2xl font-semibold text-black-900 mb-4 text-center">
               Confirm your registration
             </h3>
             {error && (
@@ -227,7 +227,7 @@ export default function App() {
               <div>
                 <label
                   htmlFor="code"
-                  className="block text-base font-medium text-purple-900 text-left"
+                  className="block text-base font-medium text-black-900 text-left"
                 >
                   Confirmation Code
                 </label>
@@ -236,13 +236,13 @@ export default function App() {
                   id="code"
                   name="code"
                   required
-                  className="mt-1 block w-full p-3 text-sm text-purple-900 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500"
+                  className="mt-1 block w-full p-3 text-sm text-black-900 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500"
                 />
               </div>
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 px-4 bg-purple-600 text-white text-lg font-semibold rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                className="w-full py-3 px-4 bg-[#07090c] text-white text-lg font-semibold rounded-lg hover:bg-black focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
               >
                 {loading ? "Confirming..." : "Confirm"}
               </button>
