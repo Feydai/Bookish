@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import BookCard from '../../components/BookCard';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Book } from '../../types/Book';
 import { Button, Chip } from '@mui/material';
 import type { Schema } from './../../../amplify/data/resource';
@@ -13,7 +13,6 @@ const BookPreview = () => {
     Amplify.configure(outputs);
     const { bookId } = useParams();
     const client = generateClient<Schema>();
-    const navigate = useNavigate();
     const [book, setBook] = useState<Book>();
 
     useEffect(() => {
@@ -53,14 +52,14 @@ const BookPreview = () => {
                 members: [...group.members, user.userId],
             };
             await client.models.Group.update(newgroup);
-            navigate('/');
+            alert('Vous avez intégré le groupe de lecture');
         }
     };
 
     return (
         <div>
             {book && (
-                <div>
+                <div className="p-3">
                     <BookCard
                         title={book.title}
                         desc={book.description}
@@ -73,7 +72,6 @@ const BookPreview = () => {
                         />
                     ))}
                     <Button onClick={selectBook}>Choisir ce livre</Button>
-                    <div>{book.description}</div>
                 </div>
             )}
         </div>

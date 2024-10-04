@@ -6,6 +6,7 @@ import {
     CardActions,
     Button,
 } from '@mui/material';
+import Default from '../assets/Livre_ouvert.svg.png';
 
 interface BookCardProps {
     imgUrl?: string;
@@ -17,8 +18,8 @@ const BookCard = ({ imgUrl, title, desc, authors }: BookCardProps) => {
     return (
         <Card sx={{ p: 2, mb: 5 }}>
             <CardMedia
-                sx={{ height: 200 }}
-                image={imgUrl}
+                sx={{ height: 200, objectFit: 'contain' }}
+                image={imgUrl ? imgUrl : Default}
                 title="Book Cover"
             />
             <CardContent>
@@ -44,6 +45,7 @@ const BookCard = ({ imgUrl, title, desc, authors }: BookCardProps) => {
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         WebkitLineClamp: 3,
+                        paddingX: 3,
                     }}
                 >
                     {desc}
